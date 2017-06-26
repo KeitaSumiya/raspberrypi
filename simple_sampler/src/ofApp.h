@@ -33,10 +33,10 @@ class ofApp : public ofBaseApp{
     int recSize;
     int playPos;
     int mode; //0:off, 1:recording, 2:play
-    GPIO gpioR;
-    string state_buttonR;
-    GPIO gpioP;
-    string state_buttonP;
-    GPIO gpioB;
-    string state_buttonB;
+    GPIO gpioRec;
+    string recButton;
+    GPIO gpioPlay;
+    string playButton;
+    GPIO gpioBack;
+    string backButton;
 };

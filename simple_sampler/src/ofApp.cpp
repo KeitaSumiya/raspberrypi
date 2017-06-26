@@ -3,15 +3,15 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0);
-    gpioR.setup("14");
-    gpioR.export_gpio();
-    gpioR.setdir_gpio("in");
-    gpioP.setup("15");
-    gpioP.export_gpio();
-    gpioP.setdir_gpio("in");
-    gpioB.setup("18");
-    gpioB.export_gpio();
-    gpioB.setdir_gpio("in");
+    gpioRececec.setup("14");
+    gpioRececec.export_gpio();
+    gpioRececec.setdir_gpio("in");
+    gpioPlay.setup("15");
+    gpioPlay.export_gpio();
+    gpioPlay.setdir_gpio("in");
+    gpioBack.setup("18");
+    gpioBack.export_gpio();
+    gpioBack.setdir_gpio("in");
 
     soundStream.printDeviceList();
     soundStream.setInDeviceID(0);
@@ -27,18 +27,18 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    gpioR.getval_gpio(state_buttonR);
-    gpioP.getval_gpio(state_buttonP);
-    gpioB.getval_gpio(state_buttonB);
+    gpioRececec.getval_gpio(recButton);
+    gpioPlay.getval_gpio(playButton);
+    gpioBack.getval_gpio(backButton);
     //ofLog()<<state_button;
     cout<<"R";
-    cout<<state_buttonR;
+    cout<<recButton;
     cout<<"_P";
-    cout<<state_buttonP;
+    cout<<playButton;
     cout<<"_B";
-    cout<<state_buttonB<<endl;
+    cout<<backButton<<endl;
 
-    if(state_buttonR=="1"){
+    if(recButton=="1"){
         if(mode==1){    //stop recording
             mode = 0;
             recSize = recPos;
@@ -49,14 +49,14 @@ void ofApp::update(){
         }
         playPos = 0;
         usleep(1000000);
-    }else if(state_buttonP=="1"){
+    }else if(playButton=="1"){
         if(mode==2){    //pause
             mode = 0;
         }else{          //play (in the middle)
             mode = 2;
         }
         usleep(1000000);
-    }else if(state_buttonB=="1"){
+    }else if(backButton=="1"){
         playPos = 0;    //return to the initial position
         //usleep(1000000);
     }
@@ -70,9 +70,11 @@ void ofApp::draw(){
     }else if(mode == 1) {
         ofBackground(255, 0, 0);
         ofSetColor(255);
+        cout<<"recording"<<endl;
     }else if(mode == 2) {
         ofBackground(0, 0, 255);
         ofSetColor(255);
+        cout<<"playing"<<endl;
     }
     
     int ratio = BufferSizeMax / ofGetWidth();
